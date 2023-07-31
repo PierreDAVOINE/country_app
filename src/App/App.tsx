@@ -6,6 +6,7 @@ import { IAppState, IAppProps } from '../@types/App';
 import axios from 'axios';
 
 class App extends React.Component<IAppState, IAppProps> {
+  // On initialise le state
   constructor(props: IAppState) {
     super(props);
     this.state = {
@@ -13,6 +14,7 @@ class App extends React.Component<IAppState, IAppProps> {
     };
   }
 
+  // Au chargement du composant, on va chercher les données
   componentDidMount() {
     const result = axios.get('https://restcountries.com/v3.1/all');
     result.then((response) => {
