@@ -1,9 +1,9 @@
 import { Country } from './Country';
 
-export interface IAppState {
+export interface ICardsState {
   countries: Array<Country>;
 }
 
-export interface IAppProps {
+export interface ICardsProps {
   countries: Array<Country>;
 }

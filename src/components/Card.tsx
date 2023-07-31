@@ -1,18 +1,20 @@
 import React from 'react';
+import { ICardState, ICardProps } from '../@types/Card';
 
-class Card extends React.Component {
+class Card extends React.Component<ICardState, ICardProps> {
   render() {
-    const { country } = this.props;
+    const { country }: ICardProps = this.props;
     return (
-      <div className="card card-compact w-96 bg-slate-700 shadow-xl">
+      <div className="py-5 card card-compact w-96 bg-slate-700 shadow-xl">
         <figure>
-          <img src="https://picsum.photos/seed/picsum/200/300" alt="Shoes" />
+          <img src={country.flags.png} alt={country.flags.alt} />
         </figure>
         <div className="card-body">
-          <h2 className="card-title">{country.name.common}</h2>
-          <p>If a dog chews shoes whose shoes does he choose?</p>
+          <h2 className="card-title">
+            {country.translations.fra.official} - [{country.continents[0]}]
+          </h2>
           <div className="card-actions justify-end">
-            <button className="btn btn-primary">Buy Now</button>
+            <button className="btn btn-primary">More</button>
           </div>
         </div>
       </div>

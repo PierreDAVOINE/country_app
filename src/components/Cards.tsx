@@ -1,12 +1,12 @@
 import React from 'react';
 import Card from './Card';
-import { IAppState } from '../@types/App';
+import { ICardsState, ICardsProps } from '../@types/Cards';
 
-class Cards extends React.Component {
+class Cards extends React.Component<ICardsState, ICardsProps> {
   render() {
-    const { countries }: IAppState = this.props;
+    const { countries }: ICardsProps = this.props;
     return (
-      <main className="py-4 border-solide border-b-2 flex justify-center flex-wrap gap-2">
+      <main className="pt-4 border-solide border-b-2 flex justify-center flex-wrap gap-2">
         {countries.length < 1 && (
           <span className="loading loading-spinner loading-lg"></span>
         )}
