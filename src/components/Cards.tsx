@@ -11,7 +11,7 @@ class Cards extends React.Component<ICardsState, ICardsProps> {
           <span className="loading loading-spinner loading-lg"></span>
         )}
         {countries.map((country) => (
-          <Card country={country} />
+          <Card country={country} key={country.ccn3} />
         ))}
       </main>
     );

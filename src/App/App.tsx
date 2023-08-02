@@ -36,15 +36,46 @@ class App extends React.Component<IAppProps, IAppState> {
   };
 
   // handleFilterCountries permet de mettre à jour le state countriesFiltered
-  //! TODO: Améliorer le filtre pour les recherches en francais
   handleFilterCountries = (): void => {
-    const newCountriesFiltered = this.state.countries.filter((country) => {
+    // On récupère les pays qui correspondent à la recherche
+    // D'abord dans les translations en français officielles
+    const countriesFilteredFraOff = this.state.countries.filter((country) => {
+      return country.translations.fra.official
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .includes(this.state.search.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
+    });
+
+    // Ensuite dans les translations en français communes
+    const countriesFilteredFraCom = this.state.countries.filter((country) => {
+      return country.translations.fra.common
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .includes(this.state.search.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
+    });
+
+    // Ensuite dans les translations en anglais
+    const countriesFilteredEng = this.state.countries.filter((country) => {
       return country.name.common
         .toLowerCase()
-        .includes(this.state.search.toLowerCase());
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .includes(this.state.search.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
     });
+
+    // On regroupe les résultats dans un tableau
+    let allCountriesFiltered = [...countriesFilteredFraOff, ...countriesFilteredFraCom, ...countriesFilteredEng];  
+
+    // On retire les doublons de allCountriesFiltered
+    allCountriesFiltered = allCountriesFiltered.filter((country, index) => {
+      return allCountriesFiltered.indexOf(country) === index;
+    });
+
+    // On met à jour le state countriesFiltered pour afficher le résultat de la recherche
     this.setState({
-      countriesFiltered: newCountriesFiltered,
+      countriesFiltered: allCountriesFiltered,
     });
   };
 
@@ -65,3 +96,14 @@ class App extends React.Component<IAppProps, IAppState> {
 }
 
 export default App;
+
+
+/*
+Afin d'affiner la recherche on normalise les strings
+> On passe en minuscule
+.toLowerCase()
+> On retire les accents
+.normalize('NFD')
+> On précise que l'on ne veut pas de caractères spéciaux
+.replace(/[\u0300-\u036f]/g, '')
+*/
