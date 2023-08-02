@@ -1,9 +1,11 @@
 import React from 'react';
-import './App.css';
+import axios from 'axios';
+import { IAppState, IAppProps } from '../@types/App';
 import Header from '../components/Header';
 import Cards from '../components/Cards';
-import { IAppState, IAppProps } from '../@types/App';
-import axios from 'axios';
+import Modal from '../components/Modal';
+import './App.css';
+import { ICountry } from '../@types/Countries';
 
 class App extends React.Component<IAppProps, IAppState> {
   // On initialise le state
@@ -13,10 +15,12 @@ class App extends React.Component<IAppProps, IAppState> {
       countries: [],
       search: '',
       countriesFiltered: [],
+      modalIsOpen: false,
+      selectedCountry: null,
     };
   }
 
-  // Au chargement du composant, on va chercher les données
+  //* Au chargement du composant, on va chercher les données
   componentDidMount() {
     const result = axios.get('https://restcountries.com/v3.1/all');
     result.then((response) => {
@@ -28,14 +32,14 @@ class App extends React.Component<IAppProps, IAppState> {
     });
   }
 
-  // handleChangeSearch permet de mettre à jour le state search
+  //* handleChangeSearch permet de mettre à jour le state search
   handleChangeSearch = (inputValue: string): void => {
     this.setState({
       search: inputValue,
     });
   };
 
-  // handleFilterCountries permet de mettre à jour le state countriesFiltered
+  //* handleFilterCountries permet de mettre à jour le state countriesFiltered
   handleFilterCountries = (): void => {
     // On récupère les pays qui correspondent à la recherche
     // D'abord dans les translations en français officielles
@@ -44,7 +48,12 @@ class App extends React.Component<IAppProps, IAppState> {
         .toLowerCase()
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
-        .includes(this.state.search.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
+        .includes(
+          this.state.search
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+        );
     });
 
     // Ensuite dans les translations en français communes
@@ -53,7 +62,12 @@ class App extends React.Component<IAppProps, IAppState> {
         .toLowerCase()
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
-        .includes(this.state.search.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
+        .includes(
+          this.state.search
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+        );
     });
 
     // Ensuite dans les translations en anglais
@@ -62,11 +76,20 @@ class App extends React.Component<IAppProps, IAppState> {
         .toLowerCase()
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
-        .includes(this.state.search.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
+        .includes(
+          this.state.search
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+        );
     });
 
     // On regroupe les résultats dans un tableau
-    let allCountriesFiltered = [...countriesFilteredFraOff, ...countriesFilteredFraCom, ...countriesFilteredEng];  
+    let allCountriesFiltered = [
+      ...countriesFilteredFraOff,
+      ...countriesFilteredFraCom,
+      ...countriesFilteredEng,
+    ];
 
     // On retire les doublons de allCountriesFiltered
     allCountriesFiltered = allCountriesFiltered.filter((country, index) => {
@@ -76,6 +99,16 @@ class App extends React.Component<IAppProps, IAppState> {
     // On met à jour le state countriesFiltered pour afficher le résultat de la recherche
     this.setState({
       countriesFiltered: allCountriesFiltered,
+    });
+  };
+
+  //* Gestion de l'ouverture de la modal
+  // TODO: Envoyer la fonction à une carte pour l'ouverture
+  // TODO: Envoyer la fonction à la modal pour la fermeture
+  handleOpenModal = (country: ICountry): void => {
+    this.setState({
+      selectedCountry: country,
+      modalIsOpen: !this.state.modalIsOpen,
     });
   };
 
@@ -89,14 +122,19 @@ class App extends React.Component<IAppProps, IAppState> {
           }
           handleFilterCountries={() => this.handleFilterCountries()}
         />
-        <Cards countries={this.state.countriesFiltered} />
+        <Cards
+          countries={this.state.countriesFiltered}
+          handleOpenModal={(country) => this.handleOpenModal(country)}
+        />
+        {this.state.modalIsOpen && (
+          <Modal selectedCountry={this.state.selectedCountry} />
+        )}
       </div>
     );
   }
 }
 
 export default App;
-
 
 /*
 Afin d'affiner la recherche on normalise les strings

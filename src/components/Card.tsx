@@ -10,7 +10,7 @@ class Card extends React.Component<ICardState, ICardProps> {
           <img
             src={country.flags.png}
             alt={country.flags.alt}
-            className="w-full max-h-56"
+            className="w-full max-h-48"
           />
         </figure>
         <div className="card-body flex flex-col justify-end">

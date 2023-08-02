@@ -1,9 +1,9 @@
-import { Country } from './Countries';
+import { ICountry } from './Countries';
 
 export interface ICardState {
-  country: Country;
+  country: ICountry;
 }
 
 export interface ICardProps {
-  country: Country;
+  country: ICountry;
 }

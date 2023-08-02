@@ -2,7 +2,7 @@ import React from 'react';
 import Card from './Card';
 import { ICardsState, ICardsProps } from '../@types/Cards';
 
-class Cards extends React.Component<ICardsState, ICardsProps> {
+class Cards extends React.Component<ICardsProps, ICardsState> {
   render() {
     const { countries }: ICardsProps = this.props;
     return (

@@ -14,9 +14,13 @@ export interface ICountry {
   region: string;
   population: number;
   flag: string;
+  flags: {
+    png: string;
+    alt: string;
+  };
   alpha3Code: string;
   nativeName: string;
   subregion: string;
   translations: ITranslation;
-  continent: Array<string>;
+  continents: Array<string>;
 }
