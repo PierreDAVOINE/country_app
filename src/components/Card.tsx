@@ -1,7 +1,7 @@
 import React from 'react';
 import { ICardState, ICardProps } from '../@types/Card';
 
-class Card extends React.Component<ICardState, ICardProps> {
+class Card extends React.Component<ICardProps, ICardState> {
   render() {
     const { country }: ICardProps = this.props;
     return (
@@ -18,7 +18,11 @@ class Card extends React.Component<ICardState, ICardProps> {
             {country.translations.fra.official} - [{country.continents[0]}]
           </h2>
           <div className="card-actions justify-end">
-            <button className="btn btn-primary">More</button>
+            <button
+              className="btn btn-primary"
+              onClick={() => this.props.handleOpenModal(country)}>
+              More
+            </button>
           </div>
         </div>
       </div>

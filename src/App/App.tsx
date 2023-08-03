@@ -103,9 +103,8 @@ class App extends React.Component<IAppProps, IAppState> {
   };
 
   //* Gestion de l'ouverture de la modal
-  // TODO: Envoyer la fonction à une carte pour l'ouverture
-  // TODO: Envoyer la fonction à la modal pour la fermeture
   handleOpenModal = (country: ICountry): void => {
+    console.log('ouverture / fermetyre + country', country);
     this.setState({
       selectedCountry: country,
       modalIsOpen: !this.state.modalIsOpen,
@@ -115,6 +114,12 @@ class App extends React.Component<IAppProps, IAppState> {
   render() {
     return (
       <div className="w-5/6 m-auto py-4">
+        {this.state.modalIsOpen && (
+          <Modal
+            country={this.state.selectedCountry}
+            handleOpenModal={(country) => this.handleOpenModal(country)}
+          />
+        )}
         <Header
           search={this.state.search}
           handleChangeSearch={(inputValue) =>
@@ -126,9 +131,6 @@ class App extends React.Component<IAppProps, IAppState> {
           countries={this.state.countriesFiltered}
           handleOpenModal={(country) => this.handleOpenModal(country)}
         />
-        {this.state.modalIsOpen && (
-          <Modal selectedCountry={this.state.selectedCountry} />
-        )}
       </div>
     );
   }

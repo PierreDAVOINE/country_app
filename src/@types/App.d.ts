@@ -5,7 +5,7 @@ export interface IAppState {
   countries: Array<Country>;
   countriesFiltered: Array<Country>;
   modalIsOpen: boolean;
-  selectedCountry: Country;
+  selectedCountry: Country | null;
 }
 
 export interface IAppProps {}

@@ -11,7 +11,11 @@ class Cards extends React.Component<ICardsProps, ICardsState> {
           <span className="loading loading-spinner loading-lg"></span>
         )}
         {countries.map((country) => (
-          <Card country={country} key={country.ccn3} />
+          <Card
+            country={country}
+            key={country.ccn3}
+            handleOpenModal={(country) => this.props.handleOpenModal(country)}
+          />
         ))}
       </main>
     );
