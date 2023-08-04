@@ -104,7 +104,6 @@ class App extends React.Component<IAppProps, IAppState> {
 
   //* Gestion de l'ouverture de la modal
   handleOpenModal = (country: ICountry): void => {
-    console.log('ouverture / fermetyre + country', country);
     this.setState({
       selectedCountry: country,
       modalIsOpen: !this.state.modalIsOpen,
