@@ -31,6 +31,14 @@ class Modal extends React.Component<IModalProps, IModalState> {
             <p>
               Monaie : {currency.name} - [{currency.symbol}]
             </p>
+            <p>
+              <a
+                className="text-lg underline font-bold"
+                href={country.maps.googleMaps}
+                target="_blank">
+                Google maps link
+              </a>
+            </p>
           </main>
 
           <footer className="modal-action">
