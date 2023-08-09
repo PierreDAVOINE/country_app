@@ -6,6 +6,7 @@ export interface IAppState {
   countriesFiltered: Array<Country>;
   modalIsOpen: boolean;
   selectedCountry: Country | null;
+  darkMode: boolean;
 }
 
 export interface IAppProps {}

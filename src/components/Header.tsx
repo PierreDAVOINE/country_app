@@ -12,9 +12,18 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
 
     return (
       <header className="border-solide border-b-2">
-        <h1 className="py-4 text-3xl text-white text-center border-solide border-b-2">
-          The country app
-        </h1>
+        <div className="flex justify-between items-center">
+          <h1 className="py-4 text-3xl text-center border-solide border-b-2">
+            The country app
+          </h1>
+          <input
+            type="checkbox"
+            className="toggle toggle-lg toggle-secondary toggle-warning"
+            onClick={() => this.props.handleDarkMode()}
+            data-toggle-theme="light, dark"
+            checked={this.props.darkMode}
+          />
+        </div>
         <form
           className="join py-5 flex justify-center"
           onSubmit={(e) => this.handleSubmit(e)}>

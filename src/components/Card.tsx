@@ -5,7 +5,7 @@ class Card extends React.Component<ICardProps, ICardState> {
   render() {
     const { country }: ICardProps = this.props;
     return (
-      <div className="card card-compact w-96 bg-slate-700 shadow-xl">
+      <div className="card card-compact w-96 bg-slate-700 shadow-xl text-slate-300">
         <figure>
           <img
             src={country.flags.png}

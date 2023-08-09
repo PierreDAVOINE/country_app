@@ -17,6 +17,7 @@ class App extends React.Component<IAppProps, IAppState> {
       countriesFiltered: [],
       modalIsOpen: false,
       selectedCountry: null,
+      darkMode: true,
     };
   }
 
@@ -110,6 +111,13 @@ class App extends React.Component<IAppProps, IAppState> {
     });
   };
 
+  //* Gestion du dark mode
+  handleDarkMode = (): void => {
+    this.setState({
+      darkMode: !this.state.darkMode,
+    });
+  };
+
   render() {
     return (
       <div className="w-5/6 m-auto py-4">
@@ -125,6 +133,8 @@ class App extends React.Component<IAppProps, IAppState> {
             this.handleChangeSearch(inputValue)
           }
           handleFilterCountries={() => this.handleFilterCountries()}
+          darkMode={this.state.darkMode}
+          handleDarkMode={() => this.handleDarkMode()}
         />
         <Cards
           countries={this.state.countriesFiltered}

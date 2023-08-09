@@ -9,7 +9,7 @@ class Modal extends React.Component<IModalProps, IModalState> {
     const currency = Object.entries(country.currencies)[0][1];
     return (
       <div className="w-screen h-screen fixed bg-slate-600/80 z-10 top-0 left-0 flex items-center justify-center">
-        <article className="bg-slate-600 rounded-lg p-6 ">
+        <article className="bg-slate-600 rounded-lg p-6 text-white">
           <header>
             <figure>
               <img
