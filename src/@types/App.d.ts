@@ -7,6 +7,7 @@ export interface IAppState {
   modalIsOpen: boolean;
   selectedCountry: Country | null;
   darkMode: boolean;
+  errorMessage: string;
 }
 
 export interface IAppProps {}

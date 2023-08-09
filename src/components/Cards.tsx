@@ -7,7 +7,7 @@ class Cards extends React.Component<ICardsProps, ICardsState> {
     const { countries }: ICardsProps = this.props;
     return (
       <main className="pt-4 border-solide border-b-2 flex justify-center flex-wrap gap-2">
-        {countries.length < 1 && (
+        {countries.length < 1 && this.props.errorMessage === '' && (
           <span className="loading loading-spinner loading-lg"></span>
         )}
         {countries.map((country) => (

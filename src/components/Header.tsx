@@ -18,7 +18,7 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
           </h1>
           <input
             type="checkbox"
-            className="toggle toggle-lg toggle-secondary toggle-warning"
+            className="toggle toggle-lg toggle-warning"
             onClick={() => this.props.handleDarkMode()}
             data-toggle-theme="light, dark"
             checked={this.props.darkMode}
@@ -39,6 +39,9 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
             Rechercher
           </button>
         </form>
+        {this.props.errorMessage !== '' && (
+          <p className="text-red-500 text-center">{this.props.errorMessage}</p>
+        )}
       </header>
     );
   }

@@ -18,6 +18,7 @@ class App extends React.Component<IAppProps, IAppState> {
       modalIsOpen: false,
       selectedCountry: null,
       darkMode: true,
+      errorMessage: '',
     };
   }
 
@@ -40,8 +41,14 @@ class App extends React.Component<IAppProps, IAppState> {
     });
   };
 
-  //* handleFilterCountries permet de mettre à jour le state countriesFiltered
+  //* handleFilterCountries permet de faire une recherche
+  // Pour cela il met à jour le state countriesFiltered
   handleFilterCountries = (): void => {
+    // On réinitialise le state errorMessage
+    this.setState({
+      errorMessage: '',
+    });
+
     // On récupère les pays qui correspondent à la recherche
     // D'abord dans les translations en français officielles
     const countriesFilteredFraOff = this.state.countries.filter((country) => {
@@ -97,10 +104,17 @@ class App extends React.Component<IAppProps, IAppState> {
       return allCountriesFiltered.indexOf(country) === index;
     });
 
-    // On met à jour le state countriesFiltered pour afficher le résultat de la recherche
-    this.setState({
-      countriesFiltered: allCountriesFiltered,
-    });
+    // Si la recherche n'a rien donnée on enregistre un message d'erruer qui s'affichera dans Cards
+    if (allCountriesFiltered.length < 1) {
+      this.setState({
+        errorMessage: 'Aucun pays ne correspond à votre recherche',
+      });
+    } else {
+      // Sinon on met à jour le state countriesFiltered pour afficher le résultat de la recherche
+      this.setState({
+        countriesFiltered: allCountriesFiltered,
+      });
+    }
   };
 
   //* Gestion de l'ouverture de la modal
@@ -135,10 +149,12 @@ class App extends React.Component<IAppProps, IAppState> {
           handleFilterCountries={() => this.handleFilterCountries()}
           darkMode={this.state.darkMode}
           handleDarkMode={() => this.handleDarkMode()}
+          errorMessage={this.state.errorMessage}
         />
         <Cards
           countries={this.state.countriesFiltered}
           handleOpenModal={(country) => this.handleOpenModal(country)}
+          errorMessage={this.state.errorMessage}
         />
       </div>
     );

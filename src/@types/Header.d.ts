@@ -4,6 +4,7 @@ export interface IHeaderProps {
   handleFilterCountries: () => void;
   darkMode: boolean;
   handleDarkMode: () => void;
+  errorMessage: string;
 }
 
 export interface IHeaderState {}
